@@ -34,23 +34,21 @@ RUN apt-get update && apt-get install -y \
     mariadb-server=1:10.11.2-1 \
     && rm -rf /var/lib/apt/lists/*
 
-RUN curl https://github.com/google/googletest/archive/release-1.12.1.tar.gz > /dev/null
-#
-## install vcpkg
-#RUN git clone https://github.com/Microsoft/vcpkg.git --branch ${VCPKG_VERSION} --single-branch /opt/vcpkg
-#WORKDIR /opt/vcpkg
-#RUN ./bootstrap-vcpkg.sh && ./vcpkg integrate install && ./vcpkg integrate bash && echo 'export PATH=$PATH:/opt/vcpkg' >>~/.bashrc
-#COPY vcpkg.json /vcpkg.json
-#RUN ./vcpkg x-update-baseline --add-initial-baseline
-#RUN ./vcpkg install --feature-flags=manifests
-#
-## json cpp
-#RUN ln -s /usr/include/jsoncpp/json/ /usr/include/json
-#
-## setup ssh
-#RUN mkdir -p /var/run/sshd
-#RUN echo 'root:12345' | chpasswd
-#RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
-#
-## SSH login fix. Otherwise user is kicked off after login
-#RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
+# install vcpkg
+RUN git clone https://github.com/Microsoft/vcpkg.git --branch ${VCPKG_VERSION} --single-branch /opt/vcpkg
+WORKDIR /opt/vcpkg
+RUN ./bootstrap-vcpkg.sh && ./vcpkg integrate install && ./vcpkg integrate bash && echo 'export PATH=$PATH:/opt/vcpkg' >>~/.bashrc
+COPY vcpkg.json /vcpkg.json
+RUN ./vcpkg x-update-baseline --add-initial-baseline
+RUN ./vcpkg install --feature-flags=manifests
+
+# json cpp
+RUN ln -s /usr/include/jsoncpp/json/ /usr/include/json
+
+# setup ssh
+RUN mkdir -p /var/run/sshd
+RUN echo 'root:12345' | chpasswd
+RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+
+# SSH login fix. Otherwise user is kicked off after login
+RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
