@@ -1,0 +1,34 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg-tool/main/docs/vcpkg.schema.json",
+  "name": "test-project",
+  "version-string": "0.1.0",
+  "dependencies": [
+    "mailio",
+    "drogon",
+    "cli11",
+    "gtest",
+    "jwt-cpp"
+  ],
+  "overrides": [
+    {
+      "name": "mailio",
+      "version": "0.21.0"
+    },
+    {
+      "name": "drogon",
+      "version": "1.8.4"
+    },
+    {
+      "name": "cli11",
+      "version": "2.3.1"
+    },
+    {
+      "name": "gtest",
+      "version": "1.12.1"
+    },
+    {
+      "name": "jwt-cpp",
+      "version": "0.6.0"
+    }
+  ]
+}

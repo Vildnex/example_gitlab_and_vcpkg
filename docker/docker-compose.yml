@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  test_container:
+    container_name: test_container
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        VCPKG_VERSION: 2023.04.15
+      network: host
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    tty: true

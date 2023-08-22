@@ -1,0 +1,17 @@
+default:
+  image: docker:20.10.16
+  services:
+    - docker:20.10.16-dind
+  before_script:
+    - docker info
+
+variables:
+  DOCKER_TLS_CERTDIR: "/certs"
+
+build:
+  stage: build
+  script:
+    - pwd
+    - ls -alrth /builds/root/example_gitlab_and_vcpkg
+    - cd docker
+    - docker-compose up
