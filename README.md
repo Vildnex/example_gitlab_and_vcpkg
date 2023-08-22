@@ -3,7 +3,7 @@ There is not any purpose of this repository other than to show the bug.
 
 ## Steps to reproduce
 
-1. Run the docker-compose file in order to start the GitLab instance.
+1. Run the docker-compose file in order to start the GitLab instance from the root dir.
 2. Edit the .env file to change the DOCKER_GITLAB_IP to the IP of the docker container. This can ce done by running the following command:
 ```docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' gitlab-ce```
 3. Restart the docker-compose file by running the following command:
